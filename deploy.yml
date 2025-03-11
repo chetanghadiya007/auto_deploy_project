@@ -1,0 +1,23 @@
+name: 🚀 Deploy Project
+
+on: 
+  push:
+    branches:
+      - main  # Runs on push to the `main` branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📂 Checkout Code
+      uses: actions/checkout@v4
+
+    - name: 📂 Upload via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: "/public_html/"  # Path to deploy files on your FTP server
+        local-dir: "./"  # Path to your project's local files
